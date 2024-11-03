@@ -6,11 +6,8 @@ import { Router } from '@angular/router';
 import {LibrosService} from '../../services/libros.service';
 import {InformacionLibros} from '../../models/informacion-libros';
 
-//abajito en el providers y ene l contructor
-
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
+//esto para evitar el blokeo del api por escribir rapido en buscar
+import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 
 
 //toast priengi
@@ -25,6 +22,10 @@ import { ToastModule } from 'primeng/toast';
   providers:[MessageService],
 })
 export class LibrosComponent {
+  //busador de palabra
+  palabraBucar: string = '';
+
+
   libroForm: FormGroup;
 
    //obtener la variable de suscripcion observable
@@ -55,10 +56,38 @@ export class LibrosComponent {
           this.obtenerAllibros()
         }
     })
+
+     //esto para la palabra a buscar
+     this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(value=>{
+      this.buscadorPalabra(value);
+    })
+
     
 
 
   }
+
+  onSearchChange(searchValue:string):void{
+    this.searchSubject.next(searchValue);
+ }
+
+ buscadorPalabra(palabra:string){
+  if(palabra==""){
+    this.obtenerAllibros()
+    return;
+  }
+   const datos={
+    "palabra":palabra
+   }
+  
+     this._LibrosService.buscarLibro(datos).subscribe(data=>{
+        this.libros=data.data
+     })
+     
+ }
 
   obtenerAllibros(){
       this._LibrosService.obtenerAllLibros().subscribe(data=>{
@@ -129,7 +158,9 @@ actualizar() {
   })
 }
 
+
 eliminarLibro(libro:any){
+
   
  console.log(libro)
  this._LibrosService.eliminarLibro(libro.id).subscribe(data=>{

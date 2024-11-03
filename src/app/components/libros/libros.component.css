@@ -5,3 +5,8 @@
 .contenedor-crear{
     margin-top: 15px;
 }
+
+.buscador-input{
+    position: relative;
+    left: 150px;
+}

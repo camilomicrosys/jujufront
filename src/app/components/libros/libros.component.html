@@ -1,6 +1,10 @@
 <div class="contenedor-crear">
     <app-crear></app-crear>
 </div>
+<div>
+  
+    <input type="text" class="form-control buscador-input" placeholder="Escribe los datos del Libro a buscar 🔍" [(ngModel)]="palabraBucar"  (ngModelChange)="onSearchChange($event)">
+</div>
 <div class="contenedor-tabla">
 <div class="mb-3">
     <p-button 
@@ -35,30 +39,36 @@
     >
         <ng-template pTemplate="header">
             <tr>
+                <th style="width:25%">Acciones</th>
                 <th style="width:25%">Id</th>
                 <th style="width:25%">Titulo</th>
                 <th style="width:25%">Autor</th>
                 <th style="width:25%">Año</th>
                 <th style="width:25%">estado</th>
-                <th style="width:25%">Crud</th>
+               
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-libro>
             <tr>
+                <td>
+                    <button title="Editar" type="button" (click)="editar(libro)"  data-toggle="modal" data-target="#editarModal">
+                        <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                    </button>
+                    <button title="Eliminar" (click)="eliminarLibro(libro)">
+                        <i class="pi pi-trash" style="font-size: 1rem;"></i>
+                    </button>
+                    
+                </td>
+                    
+                
                 <td>{{ libro.id }}</td>
                 <td>{{ libro.titulo}}</td>
                 <td>{{ libro.autor }}</td>
                 <td>{{ libro.anio_publicacion }}</td>
                 <td>{{ libro.estado }}
-                    <button type="button" (click)="editar(libro)" class="btn btn-success" data-toggle="modal" data-target="#editarModal">
-                        <i class="pi-user-edit" style="font-size: 1rem"></i> 
-                      </button>
-                    <button (click)="eliminarLibro(libro)">
-                    <i class="pi pi-trash" style="font-size: 1rem;" ></i>
-                    </button>
-                </td>
                     
-                <td></td>
+                </td>
+               
             </tr>
         </ng-template>
         <ng-template pTemplate="paginatorleft">

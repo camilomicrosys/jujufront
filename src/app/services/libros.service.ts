@@ -59,7 +59,7 @@ export class LibrosService {
     const body =libro;
     
 
-    return this.http.post(`${this.urlApi}/api/libros`,body, { headers });
+    return this.http.post(`${this.urlApi}/api/libros/buscar`,body, { headers });
   }
 
  
