@@ -10,6 +10,8 @@ import { PasswordModule } from 'primeng/password';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
+import { CommonModule } from '@angular/common';
+
 
 
 
@@ -26,7 +28,8 @@ export const PRIME_NG_MODULES = [
     PasswordModule,
     ToastModule,
     MessagesModule,
-    CalendarModule
+    CalendarModule,
+    CommonModule
   
   
   

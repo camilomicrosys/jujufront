@@ -1,0 +1,30 @@
+.header-principal {
+    position: relative;
+    left: 260px; /* Alineación del encabezado principal */
+  }
+  
+  .navbar {
+    margin-top: 30px; /* Margen superior para la barra de navegación */
+    border: 2px solid rgba(0, 0, 0, 0.1); /* Borde más grueso con transparencia */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada con transparencia */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    background-color: #f8f9fa; /* Fondo color gris claro */
+  }
+  
+  .cerrar-sesion {
+    position: relative;
+    bottom:130px
+    
+  }
+  
+  .userautenticado {
+    color: rgb(48, 172, 70); /* Color de texto para el nombre de usuario autenticado */
+  }
+  
+  .main-container {
+    background: linear-gradient(to bottom right, #ef4e3c, #ffffff, #61ba5c); /* Gradiente de rojo Angular a verde Node.js */
+    min-height: 100vh;
+    padding: 20px;
+  }
+  

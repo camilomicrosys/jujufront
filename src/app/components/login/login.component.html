@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="login-page-background">
+    <div class="container">
+        <h1>Login</h1>
+        <form [formGroup]="form" (ngSubmit)="login()">
+            <div class="mb-3">
+                <label for="usuario" class="form-label">Usuario</label>
+                <input  pInputText type="text" id="usuario" formControlName="usuario">
+                <span class="pi pi-check" [class.green-icon]="form.get('usuario')?.valid" [class.red-icon]="form.get('usuario')?.invalid && form.get('usuario')?.touched"></span>
+                <div *ngIf="form.get('usuario')?.invalid && form.get('usuario')?.touched" class="text-danger">Usuario es requerido</div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input pInputText type="password" id="password" formControlName="password">
+                <span class="pi pi-check" [class.green-icon]="form.get('password')?.valid" [class.red-icon]="form.get('password')?.invalid && form.get('password')?.touched"></span>
+                <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="text-danger">Contraseña es requerida</div>
+            </div>
+            <div *ngIf="procesando">
+            <app-spinner></app-spinner>
+            </div>
+            <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <br>
+       
+    </div>
+   
+</div>
+
+<!-- Componente p-toast para los erro de formulario desde el ts se llama el toas de eror para mostrar toasts  el automaticamente sabe que toaste estamos ejecutando desde el typescript-->
+<p-toast></p-toast>
+
+
+

@@ -14,13 +14,19 @@ import { AppComponent } from './app.component';
 import { LibrosComponent } from './components/libros/libros.component';
 import { CrearComponent } from './components/libros/crear/crear.component';
 import { LoginComponent } from './components/login/login.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LibrosComponent,
     CrearComponent,
-    LoginComponent
+    LoginComponent,
+    SpinnerComponent,
+    NavbarComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,152 @@
+<div class="contenedor-crear">
+    <app-crear></app-crear>
+</div>
+<div class="contenedor-tabla">
+<div class="mb-3">
+    <p-button 
+        type="button" 
+        icon="pi pi-chevron-left" 
+        (onClick)="prev()" 
+        [disabled]="isFirstPage()" 
+        styleClass="p-button-text" />
+    <p-button 
+        type="button"
+        icon="pi pi-refresh" 
+        (onClick)="reset()" 
+        styleClass="p-button-text" />
+    <p-button 
+        type="button" 
+        icon="pi pi-chevron-right" 
+        (onClick)="next()" 
+        [disabled]="isLastPage()" 
+        styleClass="p-button-text" />
+</div>
+<div class="card">
+    <p-table
+        [value]="libros"
+        [paginator]="true"
+        [rows]="5"
+        [first]="first"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        (onPage)="pageChange($event)"
+        [rowsPerPageOptions]="[10, 25, 50]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:25%">Id</th>
+                <th style="width:25%">Titulo</th>
+                <th style="width:25%">Autor</th>
+                <th style="width:25%">Año</th>
+                <th style="width:25%">estado</th>
+                <th style="width:25%">Crud</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-libro>
+            <tr>
+                <td>{{ libro.id }}</td>
+                <td>{{ libro.titulo}}</td>
+                <td>{{ libro.autor }}</td>
+                <td>{{ libro.anio_publicacion }}</td>
+                <td>{{ libro.estado }}
+                    <button type="button" (click)="editar(libro)" class="btn btn-success" data-toggle="modal" data-target="#editarModal">
+                        <i class="pi-user-edit" style="font-size: 1rem"></i> 
+                      </button>
+                    <button (click)="eliminarLibro(libro)">
+                    <i class="pi pi-trash" style="font-size: 1rem;" ></i>
+                    </button>
+                </td>
+                    
+                <td></td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" />
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text" />
+        </ng-template>
+    </p-table>
+</div>
+</div>
+
+
+<!-- Modal edicion -->
+<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Libro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="libroForm">
+                    <input type="hidden" formControlName="id" />
+                    
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Título del Libro"
+                        formControlName="titulo"
+                    />
+                    <div *ngIf="libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched" class="text-danger">
+                        Título es requerido.
+                    </div>
+                    <br />
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Autor del Libro"
+                        formControlName="autor"
+                    />
+                    <div *ngIf="libroForm.get('autor')?.invalid && libroForm.get('autor')?.touched" class="text-danger">
+                        Autor es requerido.
+                    </div>
+                    <br />
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        placeholder="Año de Publicación"
+                        formControlName="anio"
+                        min="1900"
+                        max="2100"
+                    />
+                    <div *ngIf="libroForm.get('anio')?.invalid && libroForm.get('anio')?.touched" class="text-danger">
+                        <span *ngIf="libroForm.get('anio')?.errors?.['required']">Año es requerido.</span>
+                        <span *ngIf="libroForm.get('anio')?.errors?.['min']">Año no puede ser menor que 1900.</span>
+                        <span *ngIf="libroForm.get('anio')?.errors?.['max']">Año no puede ser mayor que 2100.</span>
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+                        <label for="estadoSelect">Estado</label>
+                        <select class="form-control" id="estadoSelect" formControlName="estado">
+                            <option value="">Seleccione...</option>
+                            <option value="disponible">Disponible</option>
+                            <option value="reservado">Reservado</option>
+                        </select>
+                        <div *ngIf="libroForm.get('estado')?.invalid && libroForm.get('estado')?.touched" class="text-danger">
+                            Estado es requerido.
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="actualizar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  
+
+
+<p-toast></p-toast>
